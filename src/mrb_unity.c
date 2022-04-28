@@ -126,6 +126,18 @@ mrb_unity_mrb_state_exc(mrb_state *mrb)
     return mrb_obj_value(mrb->exc);
 }
 
+MRB_API int
+mrb_unity_gc_arena_save(mrb_state *mrb)
+{
+    return mrb_gc_arena_save(mrb);
+}
+
+MRB_API void
+mrb_unity_gc_arena_restore(mrb_state *mrb, int idx)
+{
+    mrb_gc_arena_restore(mrb, idx);
+}
+
 void mrb_mruby_unity_gem_init(mrb_state *mrb)
 {
 }
