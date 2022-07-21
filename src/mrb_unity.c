@@ -22,6 +22,12 @@ mrb_unity_set_abort_func(mrb_state *mrb, mrb_unity_abort_delegate_t f)
 }
 
 // Value creation.
+MRB_API enum mrb_vtype
+mrb_unity_type(mrb_value o)
+{
+    return mrb_type(o);
+}
+
 MRB_API mrb_value
 mrb_unity_fixnum_value(mrb_int v)
 {
@@ -32,6 +38,12 @@ MRB_API mrb_value
 mrb_unity_int_value(mrb_state *mrb, mrb_int v)
 {
     return mrb_int_value(mrb, v);
+}
+
+MRB_API mrb_value
+mrb_unity_symbol_value(mrb_sym v)
+{
+    return mrb_symbol_value(v);
 }
 
 MRB_API mrb_value
@@ -71,6 +83,12 @@ mrb_unity_as_int(mrb_state *mrb, mrb_value obj)
     return mrb_as_int(mrb, obj);
 }
 
+MRB_API mrb_float
+mrb_unity_as_float(mrb_state *mrb, mrb_value obj)
+{
+    return mrb_as_float(mrb, obj);
+}
+
 MRB_API mrb_int
 mrb_unity_string_len(mrb_state *mrb, mrb_value obj)
 {
@@ -95,7 +113,7 @@ mrb_unity_string_buf(mrb_state *mrb, mrb_value obj, char *buf, size_t buf_len)
 }
 
 MRB_API mrb_value
-mrb_unity_ptr_to_str(mrb_state *mrb, const char *p)
+mrb_unity_ptr_to_str(mrb_state *mrb, void *p)
 {
     return mrb_ptr_to_str(mrb, p);
 }
