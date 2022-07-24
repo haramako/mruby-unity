@@ -1,4 +1,5 @@
 #include <mruby.h>
+#include <mruby/class.h>
 #include <mruby/string.h>
 #include <mruby/throw.h>
 #include <stdio.h>
@@ -87,6 +88,12 @@ MRB_API mrb_float
 mrb_unity_as_float(mrb_state *mrb, mrb_value obj)
 {
     return mrb_as_float(mrb, obj);
+}
+
+MRB_API struct RClass *
+mrb_unity_class_ptr(mrb_value v)
+{
+    return mrb_class_ptr(v);
 }
 
 MRB_API mrb_int
