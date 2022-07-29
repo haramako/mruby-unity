@@ -5,14 +5,14 @@
 #include <stdio.h>
 #include <memory.h>
 
-typedef void (*mrb_unity_abort_delegate_t)(const char *);
+typedef void (*mrb_unity_abort_delegate_t)(mrb_state *, mrb_value);
 
 static mrb_unity_abort_delegate_t mrb_unity_abort_delegate;
 
 void mrb_unity_abort_callback(mrb_state *mrb, mrb_value exc)
 {
-    mrb_value msg = mrb_funcall(mrb, exc, "to_s", 0);
-    mrb_unity_abort_delegate(RSTRING_PTR(msg));
+    mrb->exc = NULL;
+    mrb_unity_abort_delegate(mrb, exc);
 }
 
 MRB_API void
@@ -149,6 +149,12 @@ MRB_API mrb_value
 mrb_unity_mrb_state_exc(mrb_state *mrb)
 {
     return mrb_obj_value(mrb->exc);
+}
+
+MRB_API void
+mrb_unity_mrb_state_clear_exc(mrb_state *mrb)
+{
+    mrb->exc = NULL;
 }
 
 MRB_API int
