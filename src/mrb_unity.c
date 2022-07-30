@@ -1,4 +1,5 @@
 #include <mruby.h>
+#include <mruby/array.h>
 #include <mruby/class.h>
 #include <mruby/string.h>
 #include <mruby/throw.h>
@@ -167,6 +168,18 @@ MRB_API void
 mrb_unity_gc_arena_restore(mrb_state *mrb, int idx)
 {
     mrb_gc_arena_restore(mrb, idx);
+}
+
+MRB_API mrb_uint
+mrb_rarray_len_noinline(mrb_value v)
+{
+    return RARRAY_LEN(v);
+}
+
+MRB_API mrb_value *
+mrb_rarray_ptr_noinline(mrb_value v)
+{
+    return RARRAY_PTR(v);
 }
 
 void mrb_mruby_unity_gem_init(mrb_state *mrb)
