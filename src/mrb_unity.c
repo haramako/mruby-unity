@@ -91,6 +91,24 @@ mrb_unity_as_float(mrb_state *mrb, mrb_value obj)
     return mrb_as_float(mrb, obj);
 }
 
+MRB_API int32_t
+mrb_bool_noinline(mrb_value obj)
+{
+    return mrb_bool(obj);
+}
+
+MRB_API int32_t
+mrb_true_p_noinline(mrb_value obj)
+{
+    return mrb_true_p(obj);
+}
+
+MRB_API int32_t
+mrb_false_p_noinline(mrb_value obj)
+{
+    return mrb_false_p(obj);
+}
+
 MRB_API struct RClass *
 mrb_unity_class_ptr(mrb_value v)
 {
