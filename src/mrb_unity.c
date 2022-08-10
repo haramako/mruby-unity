@@ -3,6 +3,7 @@
 #include <mruby/class.h>
 #include <mruby/string.h>
 #include <mruby/throw.h>
+#include <mruby/compile.h>
 #include <stdio.h>
 #include <memory.h>
 
@@ -198,6 +199,22 @@ MRB_API mrb_value *
 mrb_rarray_ptr_noinline(mrb_value v)
 {
     return RARRAY_PTR(v);
+}
+
+MRB_API mrb_value
+mrb_load_string_filename(mrb_state *mrb, const char *src, const char *filename)
+{
+    int ai = mrb_gc_arena_save(mrb);
+
+    struct mrbc_context *ctx = mrbc_context_new(mrb);
+    mrbc_filename(mrb, ctx, filename);
+
+    mrb_value v = mrb_load_string_cxt(mrb, src, ctx);
+
+    mrbc_context_free(mrb, ctx);
+    mrb_gc_arena_restore(mrb, ai);
+
+    return v;
 }
 
 void mrb_mruby_unity_gem_init(mrb_state *mrb)
